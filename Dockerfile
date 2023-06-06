@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 COPY . /app
 
 # Expose the app port
-EXPOSE 80
+# EXPOSE 80
 
 # Run command
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "${PORT}"]
