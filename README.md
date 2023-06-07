@@ -4,8 +4,12 @@
 
 - You need to setup the Dockerfile first
 - Use port 8080
-- run gcloud builds submit --tag gcr.io/{project name}/{container name}
-- gcloud run deploy --image gcr.io/{project name}/{container name} --platform manage
+- run `gcloud builds submit --tag gcr.io/{project name}/{container name}`
+- then run `gcloud run deploy --image gcr.io/{project name}/{container name} --platform manage`
+- select `asia-southeast2 server`
+- turn on `Allow unauthenticated invocations`
+- use `CPU is only allocated during request processing`
+- and use `Execution environment second gen`
 
 for example
 ```
