@@ -1,3 +1,19 @@
+# Deployment Documentation
+
+## Using GCP console
+
+- You need to setup the Dockerfile first
+- Use port 8080
+- run gcloud builds submit --tag gcr.io/{project name}/{container name}
+- gcloud run deploy --image gcr.io/{project name}/{container name} --platform manage
+
+for example
+```
+gcloud builds submit --tag gcr.io/nutriary-api/test
+gcloud run deploy --image gcr.io/nutriary-api/test --platform managed
+```
+
+
 # Nutriary API Documentation
 
 Welcome to the Nutriary API documentation. This API allows you to classify Indonesian food images using TensorFlow, providing information about the predicted food class and its corresponding probability.
