@@ -9,7 +9,7 @@
 - select `asia-southeast2 server`
 - turn on `Allow unauthenticated invocations`
 - use `CPU is only allocated during request processing`
-- and use `Execution environment second gen`
+- and then set the Execution environment to `second gen`
 
 for example
 ```
