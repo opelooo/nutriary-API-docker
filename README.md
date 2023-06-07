@@ -7,9 +7,6 @@
 - run `gcloud builds submit --tag gcr.io/{project name}/{container name}`
 - then run `gcloud run deploy --image gcr.io/{project name}/{container name} --platform manage`
 - select `asia-southeast2 server`
-- turn on `Allow unauthenticated invocations`
-- use `CPU is only allocated during request processing`
-- and then set the Execution environment to `second gen`
 
 for example
 ```
@@ -17,6 +14,12 @@ gcloud builds submit --tag gcr.io/nutriary-api/test
 gcloud run deploy --image gcr.io/nutriary-api/test --platform managed
 ```
 
+After the service is running, you can set the service setting to this:
+- turn on `Allow unauthenticated invocations`
+- use `CPU is only allocated during request processing`
+- and then set the Execution environment to `second gen`
+
+then all set, your API ready to go
 
 # Nutriary API Documentation
 
