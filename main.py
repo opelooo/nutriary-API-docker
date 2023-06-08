@@ -1,11 +1,12 @@
 import os
 import io
+import apis_config as config
 import function as func
 from PIL import Image
 from starlette.responses import FileResponse 
 from fastapi import FastAPI, UploadFile, File
 
-app = FastAPI()
+app = config.app
 
 # Defining path operation for root endpoint
 @app.get('/')

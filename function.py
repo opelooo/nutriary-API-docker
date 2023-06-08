@@ -22,10 +22,14 @@ model_dir = "models/model-Bloss-1685804794.265851.h5"
 model = load_model(model_dir)
 
 def preprocess_image(image):
-    image = image.resize((224, 224))  # Resize to match the input size of the model
-    image_array = np.array(image)
-    image_array = tf.keras.applications.xception.preprocess_input(image_array)
-    image_array = np.expand_dims(image, axis=0)
+    try:
+        image = image.resize((224, 224))  # Resize to match the input size of the model
+        image_array = np.array(image)
+        image_array = tf.keras.applications.xception.preprocess_input(image_array)
+        image_array = np.expand_dims(image, axis=0)
+    except Exception as e:
+        return {"error" : str(e)}
+        
     return image_array
 
 def predict(image):
