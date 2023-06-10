@@ -4,7 +4,7 @@ import apis_config as config
 import function as func
 from PIL import Image
 from starlette.responses import FileResponse 
-from fastapi import FastAPI, UploadFile, File
+from fastapi import UploadFile, File
 
 app = config.app
 
@@ -12,7 +12,6 @@ app = config.app
 @app.get('/')
 def main():
     return {'message': 'Welcome to Nutriary Model test API!'}
-
 
 # Defining path operation for /documentation endpoint
 @app.get("/documentation")
@@ -26,13 +25,24 @@ async def predict_image(file: UploadFile = File(...)):
     content = await file.read()
     try:
         image = Image.open(io.BytesIO(content))
-        image = func.preprocess_image(image)
     except Exception as e:
-        return {"error" : str(e)}
+        return func.response(status="error", e=e)
+    
+    image = func.preprocess_image(image)
 
-    response = func.predict(image)
+    prediction = func.predict(image)
+
     # Return the predicted class
-    return response
+    return prediction
+
+@app.get('/nutrisi')
+async def get_data():
+    # Get data from the database
+    data = func.get_data_from_database()
+
+    # Return the data as JSON response
+    return {"data": data}
+
 
 if __name__ == "__main__":
 	port = int(os.environ.get('PORT', 8080))
