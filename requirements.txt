@@ -18,3 +18,4 @@ tensorflow==2.11
 Pillow==9.5.0
 python-multipart==0.0.6
 starlette
+mysql-connector
