@@ -44,7 +44,7 @@ async def get_data():
     return {"data": data}
 
 @app.get('/nutrisi/{nama_makanan}')
-async def get_data():
+async def get_specific_data(nama_makanan: str):
     # Get data from the database
     data = func.filter_data(nama_makanan)
 
