@@ -17,14 +17,6 @@ import os
 import io
 import mysql.connector
 
-# Connect to MySQL database
-cnx = mysql.connector.connect(
-    host='34.101.96.36',
-    user='mathys-seilatu',
-    password='_ISJXQ@:#_/FjC,Y',
-    database='nutriary'
-)
-
 class_names = ['bakso', 'gado', 'rendang', 'sate']
 
 model_dir = "models/model-Bloss-1685804794.265851.h5"
@@ -57,6 +49,14 @@ def filter_data(nama_makanan):
     return Querying(f"SELECT * FROM nutrisi WHERE nama_bahan_makanan LIKE \"%{str(nama_makanan)}%\"")
 
 def Querying(qry):
+    # Connect to MySQL database
+    cnx = mysql.connector.connect(
+        host='34.101.96.36',
+        user='mathys-seilatu',
+        password='_ISJXQ@:#_/FjC,Y',
+        database='nutriary'
+    )
+
     # Create a cursor to execute SQL queries
     cursor = cnx.cursor()
 
