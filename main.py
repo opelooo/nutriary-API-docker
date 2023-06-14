@@ -38,11 +38,26 @@ async def predict_image(file: UploadFile = File(...)):
 @app.get('/nutrisi')
 async def get_data():
     # Get data from the database
-    data = func.get_data_from_database()
+    data = func.get_all()
 
     # Return the data as JSON response
     return {"data": data}
 
+@app.get('/nutrisi/{nama_makanan}')
+async def get_data():
+    # Get data from the database
+    data = func.filter_data(nama_makanan)
+
+    # Return the data as JSON response
+    return {"data": data}
+
+# @app.post('/nutrisi/{nama_makanan}')
+# async def get_data():
+#     # Get data from the database
+#     data = func.filter_data(nama_makanan)
+
+#     # Return the data as JSON response
+#     return {"data": data}
 
 if __name__ == "__main__":
 	port = int(os.environ.get('PORT', 8080))
