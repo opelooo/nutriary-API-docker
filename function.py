@@ -112,8 +112,27 @@ def Querying_filter(qry):
     return {"data": json_data}
 
 def Querying_one(qry):
-    
-    rows = send_query(qry)
+    # Connect to MySQL database
+    cnx = mysql.connector.connect(
+        host='34.101.96.36',
+        user='mathys-seilatu',
+        password='_ISJXQ@:#_/FjC,Y',
+        database='nutriary'
+    )
+
+    # Create a cursor to execute SQL queries
+    cursor = cnx.cursor()
+
+    # Execute SQL query to fetch data
+    query = qry
+    cursor.execute(query)
+
+    # Fetch all rows from the result
+    rows = cursor.fetchall()
+
+    # Close the cursor and database connection
+    cursor.close()
+    cnx.close()
 
     # Create a list to store the JSON data
     json_data:dict
