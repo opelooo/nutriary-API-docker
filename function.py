@@ -49,7 +49,7 @@ def filter_data(nama_makanan):
     return Querying_filter(f"SELECT * FROM nutrisi WHERE nama_bahan_makanan LIKE \"%{str(nama_makanan)}%\"")
 
 def filter_data_one_output(nama_makanan):
-    return Querying_filter(f"SELECT * FROM nutrisi WHERE nama_bahan_makanan LIKE \"%{str(nama_makanan)}%\"")
+    return Querying_filter(f"SELECT * FROM nutrisi WHERE nama_bahan_makanan LIKE \"{str(nama_makanan)}\"")
 
 def send_query(qry):
     try:
