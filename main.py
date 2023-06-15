@@ -76,7 +76,6 @@ async def get_one_data(nama_makanan: str):
         return data
     else:
         return {"message": "No data found"}
-    return {"data": data}
 
 if __name__ == "__main__":
 	port = int(os.environ.get('PORT', 8080))
