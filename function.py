@@ -43,33 +43,50 @@ def predict(image):
     return {"class" : str(class_name), "probability" : probability}
 
 def get_all():
-    return Querying("SELECT * FROM nutrisi")
+    return Querying_filter("SELECT * FROM nutrisi")
 
 def filter_data(nama_makanan):
-    return Querying(f"SELECT * FROM nutrisi WHERE nama_bahan_makanan LIKE \"%{str(nama_makanan)}%\"")
+    return Querying_filter(f"SELECT * FROM nutrisi WHERE nama_bahan_makanan LIKE \"%{str(nama_makanan)}%\"")
 
-def Querying(qry):
-    # Connect to MySQL database
-    cnx = mysql.connector.connect(
-        host='34.101.96.36',
-        user='mathys-seilatu',
-        password='_ISJXQ@:#_/FjC,Y',
-        database='nutriary'
-    )
+def filter_data_one_output(nama_makanan):
+    return Querying_one(f"SELECT * FROM nutrisi WHERE nama_bahan_makanan LIKE \"%{str(nama_makanan)}%\"")
 
-    # Create a cursor to execute SQL queries
-    cursor = cnx.cursor()
+def send_query(qry):
+    try:
+        # Connect to MySQL database
+        cnx = mysql.connector.connect(
+            host='34.101.96.36',
+            user='mathys-seilatu',
+            password='_ISJXQ@:#_/FjC,Y',
+            database='nutriary'
+        )
 
-    # Execute SQL query to fetch data
-    query = qry
-    cursor.execute(query)
+        # Create a cursor to execute SQL queries
+        cursor = cnx.cursor()
 
-    # Fetch all rows from the result
-    rows = cursor.fetchall()
+        # Execute SQL query to fetch data
+        query = qry
+        cursor.execute(query)
 
-    # Close the cursor and database connection
-    cursor.close()
-    cnx.close()
+        # Fetch all rows from the result
+        rows = cursor.fetchall()
+
+        if cursor.rowcount == 0:
+            raise HTTPException(status_code=404, detail="Item not found")
+        
+    except Exception as e:
+        # Tangani kesalahan jika terjadi
+        return str(e)
+    finally:
+        # Close the cursor and database connection
+        cursor.close()
+        cnx.close()
+
+    return rows
+
+def Querying_filter(qry):
+
+    rows = send_query(qry)
 
     # Create a list to store the JSON data
     json_data = []
@@ -86,9 +103,37 @@ def Querying(qry):
             'serat_g': row[6],
             'kalsium_mg': row[7],
             'besi_mg': row[8],
-            'natrium_mg': row[9]
+            'natrium_mg': row[9],
+            'serving_size_g': row[10]
             # Add more columns as needed
         }
         json_data.append(data)
+    
+    return {"data": json_data}
 
-    return json_data
+def Querying_one(qry):
+    
+    rows = send_query(qry)
+
+    # Create a list to store the JSON data
+    json_data:dict
+
+    # Iterate over the rows and convert each row to a dictionary
+    for row in rows:
+        data = {
+            'kode': str(row[0]),
+            'nama_bahan_makanan': str(row[1]),
+            'energi_kal': row[2],
+            'protein_g': row[3],
+            'lemak_g': row[4],
+            'karbohidrat_g': row[5],
+            'serat_g': row[6],
+            'kalsium_mg': row[7],
+            'besi_mg': row[8],
+            'natrium_mg': row[9],
+            'serving_size_g': row[10]
+            # Add more columns as needed
+        }
+        json_data = data
+
+    return {"data": json_data}
