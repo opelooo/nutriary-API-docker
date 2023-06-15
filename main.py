@@ -51,13 +51,23 @@ async def get_specific_data(nama_makanan: str):
     # Return the data as JSON response
     return {"data": data}
 
-# @app.post('/nutrisi/{nama_makanan}')
-# async def get_data():
-#     # Get data from the database
-#     data = func.filter_data(nama_makanan)
+@app.get('/nutrisi-specific/{nama_makanan}')
+async def get_one_data(nama_makanan: str):
+    if nama_makanan.lower() == "bakso":
+        nama_makanan = "Bakso daging sapi"
+        # Get data from the database
+        data = func.filter_data_one_output(nama_makanan)
+    if nama_makanan.lower() == "sate":
+        nama_makanan = "Sate ayam"
+        # Get data from the database
+        data = func.filter_data_one_output(nama_makanan)
+    if nama_makanan.lower() == "rendang":
+        nama_makanan = "Rendang sapi masakan"
+        # Get data from the database
+        data = func.filter_data_one_output(nama_makanan)
 
-#     # Return the data as JSON response
-#     return {"data": data}
+    # Return the data as JSON response
+    return {"data": data}
 
 if __name__ == "__main__":
 	port = int(os.environ.get('PORT', 8080))
