@@ -70,8 +70,11 @@ async def get_one_data(nama_makanan: str):
         nama_makanan = "Rendang sapi masakan"
         # Get data from the database
         data = func.filter_data_one_output(nama_makanan)
-    else:
+    if nama_makanan.lower() == "rendang":
         nama_makanan = "Gado-gado"
+        # Get data from the database
+        data = func.filter_data_one_output(nama_makanan)
+    else:
         # Get data from the database
         data = func.filter_data_one_output(nama_makanan)
 
