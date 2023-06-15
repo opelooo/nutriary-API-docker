@@ -70,6 +70,10 @@ async def get_one_data(nama_makanan: str):
         nama_makanan = "Rendang sapi masakan"
         # Get data from the database
         data = func.filter_data_one_output(nama_makanan)
+    else:
+        nama_makanan = "Gado-gado"
+        # Get data from the database
+        data = func.filter_data_one_output(nama_makanan)
 
     # Return the data as JSON response
     if data: 
