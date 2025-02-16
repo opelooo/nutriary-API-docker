@@ -18,7 +18,7 @@ def get_db_connection():
     return connection
 
 @app.get("/get-data")
-@limiter.limit("30/minute")  # Limit to as many as you want requests per minute per IP
+@limiter.limit("100/minute")  # Limit to as many as you want requests per minute per IP
 def read_employees(request: Request):
     try:
         conn = get_db_connection()
